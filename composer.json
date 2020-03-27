@@ -25,5 +25,12 @@
   },
   "require-dev": {
     "phpunit/phpunit": "^5.7"
-  }
+  },
+  "repositories": [
+    {
+      "type": "vcs",
+      "url":  "git@github.com:timclifford/drutiny-common-plugin.git",
+      "reference": "Drutiny-Common-Plugin"
+    }
+  ]
 }
