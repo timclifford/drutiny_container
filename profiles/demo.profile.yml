@@ -2,8 +2,6 @@ title: 'Demo Profile'
 description: 'A demo profile'
 policies:
     'Drupal:AnonSession': { severity: 2 }
-    'Drupal:SyslogEnabled': { severity: 2 }
-    'fs:SensitivePublicFiles': { severity: 2 }
     'common:DrupalCoreVersion': { severity: 2 }
 content:
     - { heading: Purpose, body: "This report is designed to provide some feedback on the overall health of\nthe web application by performing some deep dive analysis. The items\nsurfaced in the report can help improve performance and stability.\n" }

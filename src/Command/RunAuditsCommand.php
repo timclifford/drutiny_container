@@ -13,6 +13,7 @@ use AdamBrett\ShellWrapper\Runners\Exec;
 use Dotenv\Dotenv;
 use Maknz\Slack\Client;
 
+
 class RunAuditsCommand extends Command
 {
     const DRUTINY_EXEC = "./bin/drutiny";
@@ -29,21 +30,28 @@ class RunAuditsCommand extends Command
         $dotenv = Dotenv::create(__DIR__ . "/../../");
         $dotenv->load();
 
-
         //TODO: read in all the site aliases again.
         $siteAliases = Yaml::parseFile("./lagoonprojects.yml");
         //TODO: run through 'em running the drutiny stuff.
         foreach ($siteAliases as $siteName => $siteDetails) {
             $shell = new Exec();
             $command = new \AdamBrett\ShellWrapper\Command(self::DRUTINY_EXEC);
-            $command->addParam(new Param('policy:audit'));
+
+            //$command->addParam(new Param('policy:audit'));
+            $command->addParam(new Param('profile:run'));
+
             $command->addFlag(new ExecCommand\Flag('fmarkdown'));
             $command->addFlag(new ExecCommand\Flag('ostdout'));
-            $command->addParam(new Param('Drupal-8:CssAggregation'));
+            // $command->addParam(new Param('Drupal-8:CssAggregation'));
+            // $command->addParam(new Param('common:DrupalCoreVersion'));
+
+            $command->addParam(new Param('Common'));
             $command->addParam(new Param(sprintf("@%s", $siteName)));
 
+            // Debugging purposes
+            echo "Running " . $command->__toString();
+
             $output = $shell->run($command);
-            var_dump($output);
 
             if(!empty($output)) {
                 $client = new Client(getenv('SLACK_WEBHOOK'));
